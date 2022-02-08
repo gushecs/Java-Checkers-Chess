@@ -15,6 +15,10 @@ public class Queen extends ChessPiece {
 	public String toString() {
 		return "Q";
 	}
+	
+	public String getSecondLetter() {
+		return "u";
+	}
 
 	@Override
 	public boolean[][] possibleMoves() {

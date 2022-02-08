@@ -15,6 +15,10 @@ public class Rook extends ChessPiece {
 	public String toString() {
 		return "R";
 	}
+	
+	public String getSecondLetter() {
+		return "o";
+	}
 
 	@Override
 	public boolean[][] possibleMoves() {

@@ -15,6 +15,10 @@ public class Bishop extends ChessPiece{
 	public String toString() {
 		return "B";
 	}
+	
+	public String getSecondLetter() {
+		return "i";
+	}
 
 	@Override
 	public boolean[][] possibleMoves() {

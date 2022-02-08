@@ -19,6 +19,10 @@ public class Pawn extends ChessPiece{
 	public String toString() {
 		return "P";
 	}
+	
+	public String getSecondLetter() {
+		return "a";
+	}
 
 	@Override
 	public boolean[][] possibleMoves() {

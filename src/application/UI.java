@@ -52,7 +52,8 @@ public class UI {
 	}
 
 	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
-		printBoard(chessMatch.getPieces());
+		boolean[][] mat = new boolean[chessMatch.getBoard().getRows()][chessMatch.getBoard().getColumns()];
+		printBoard(chessMatch.getPieces(), mat,chessMatch);
 		System.out.println();
 		printCapturedPieces(captured);
 		System.out.println();
@@ -64,47 +65,63 @@ public class UI {
 			}
 		} else {
 			System.out.println("CHECKMATE!");
-			System.out.println("Winner: "+chessMatch.getCurrentPlayer());
+			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
 		}
 	}
 
-	public static void printBoard(ChessPiece[][] pieces) {
+	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves,ChessMatch chessMatch) {
 		for (int i = 0; i < pieces.length; i++) {
+			System.out.print(ANSI_BLACK_BACKGROUND);
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < pieces.length; j++) {
-				printPiece(pieces[i][j], false);
+				int whiteBlackIndex = (i + j) % 2;
+				String bg = (whiteBlackIndex == 0) ? ANSI_BLACK_BACKGROUND : ANSI_WHITE_BACKGROUND;
+				System.out.print(bg);
+				printPiece(pieces[i][j], possibleMoves[i][j],chessMatch.getCurrentPlayer(),whiteBlackIndex);
 			}
+			System.out.print(ANSI_BLACK_BACKGROUND);
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
+		System.out.print(ANSI_RESET);
 	}
 
-	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
-		for (int i = 0; i < pieces.length; i++) {
-			System.out.print((8 - i) + " ");
-			for (int j = 0; j < pieces.length; j++) {
-				printPiece(pieces[i][j], possibleMoves[i][j]);
-			}
-			System.out.println();
-		}
-		System.out.println("  a b c d e f g h");
-	}
-
-	private static void printPiece(ChessPiece piece, boolean background) {
+	private static void printPiece(ChessPiece piece, boolean background, Color currentPlayer, int whiteBlackIndex) {
+		String bgc = " ";
+		String pc = (whiteBlackIndex == 0) ? ANSI_WHITE : ANSI_BLACK;
 		if (background) {
-			System.out.print(ANSI_BLUE_BACKGROUND);
+			bgc = ANSI_PURPLE_BACKGROUND;
+			pc = ANSI_BLACK;
 		}
-		if (piece == null) {
-			System.out.print("-" + ANSI_RESET);
-		} else {
-			if (piece.getColor() == Color.WHITE) {
-				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+		if (piece != null) {
+			if (!background && piece.getColor() == Color.WHITE && currentPlayer == Color.WHITE) {
+				pc = ANSI_BLUE;
+			} else if (!background && piece.getColor() == Color.BLACK && currentPlayer == Color.BLACK) {
+				pc = ANSI_RED;
+			}
+			if (!bgc.equals(" ")) {
+				System.out.print(bgc + pc + piece + piece.getSecondLetter() + ANSI_RESET);
 			} else {
-				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+				System.out.print(pc + piece + piece.getSecondLetter() + ANSI_RESET);
+			}
+		} else {
+			if (!bgc.equals(" ")) {
+				System.out.print(bgc + "  " + ANSI_RESET);
+			} else {
+				System.out.print("  " + ANSI_RESET);
 			}
 		}
-		System.out.print(" ");
 	}
+
+	/*
+	 * private static void printPiece(ChessPiece piece, boolean background) { if
+	 * (background) { System.out.print(ANSI_BLUE_BACKGROUND); } if (piece == null) {
+	 * System.out.print("  " + ANSI_RESET); } else { if (piece.getColor() ==
+	 * Color.WHITE) { System.out.print(ANSI_BLUE + piece);
+	 * System.out.print(piece.getSecondLetter() + ANSI_RESET); } else {
+	 * System.out.print(ANSI_RED + piece); System.out.print(piece.getSecondLetter()
+	 * + ANSI_RESET); } } }
+	 */
 
 	private static void printCapturedPieces(List<ChessPiece> captured) {
 		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE)
@@ -113,11 +130,11 @@ public class UI {
 				.collect(Collectors.toList());
 		System.out.println("Captured pieces:");
 		System.out.print("White: ");
-		System.out.print(ANSI_WHITE);
+		System.out.print(ANSI_BLUE);
 		System.out.println(Arrays.toString(white.toArray()));
 		System.out.print(ANSI_RESET);
 		System.out.print("Black: ");
-		System.out.print(ANSI_YELLOW);
+		System.out.print(ANSI_RED);
 		System.out.println(Arrays.toString(black.toArray()));
 		System.out.print(ANSI_RESET);
 	}

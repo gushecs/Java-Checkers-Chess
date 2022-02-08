@@ -19,6 +19,10 @@ public class King extends ChessPiece {
 	public String toString() {
 		return "K";
 	}
+	
+	public String getSecondLetter() {
+		return "i";
+	}
 
 	private boolean canMove(Position position) {
 		ChessPiece p = (ChessPiece) getBoard().piece(position);

@@ -20,6 +20,8 @@ public abstract class ChessPiece extends Piece{
 		return color;
 	}
 	
+	public abstract String getSecondLetter();
+	
 	public void increaseMoveCount() {
 		moveCount++;
 	}
