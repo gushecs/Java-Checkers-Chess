@@ -34,4 +34,12 @@ public class CheckersPiece extends Piece{
 		return null;
 	}
 	
+	public boolean[][] possibleCaptures() {
+		return null;
+	}
+	
+	public boolean isThereACapture() {
+		return false;
+	}
+	
 }
