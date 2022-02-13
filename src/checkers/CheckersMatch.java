@@ -139,7 +139,7 @@ public class CheckersMatch {
 		return false;
 	}
 	
-	private boolean isThereAWinner() {
+	public boolean isThereAWinner() {
 		List<CheckersPiece> list = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == currentPlayer)
 				.collect(Collectors.toList());
 		if (list.size()==0) {

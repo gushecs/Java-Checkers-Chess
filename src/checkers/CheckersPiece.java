@@ -29,6 +29,10 @@ public class CheckersPiece extends Piece {
 	public GamePosition getCheckersPosition() {
 		return GamePosition.fromPosition(position);
 	}
+	
+	public String getSecondLetter() {
+		return null;
+	}
 
 	public List<List<CheckersPiece>> getCapturedPieces() {
 		return capturedPieces;

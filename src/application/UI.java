@@ -113,16 +113,6 @@ public class UI {
 		}
 	}
 
-	/*
-	 * private static void printPiece(ChessPiece piece, boolean background) { if
-	 * (background) { System.out.print(ANSI_BLUE_BACKGROUND); } if (piece == null) {
-	 * System.out.print("  " + ANSI_RESET); } else { if (piece.getColor() ==
-	 * Color.WHITE) { System.out.print(ANSI_BLUE + piece);
-	 * System.out.print(piece.getSecondLetter() + ANSI_RESET); } else {
-	 * System.out.print(ANSI_RED + piece); System.out.print(piece.getSecondLetter()
-	 * + ANSI_RESET); } } }
-	 */
-
 	private static void printCapturedPieces(List<ChessPiece> captured) {
 		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE)
 				.collect(Collectors.toList());
