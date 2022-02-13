@@ -62,7 +62,7 @@ public class CheckersMatch {
 		return board.piece(position).possibleMoves();
 	}
 
-	private void performCheckersMove(GamePosition sourcePosition, GamePosition targetPosition) {
+	public void performCheckersMove(GamePosition sourcePosition, GamePosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
@@ -151,6 +151,13 @@ public class CheckersMatch {
 			}
 		}
 		return !isThereACapture();
+	}
+	
+	public void updateCapture() {
+		if (isThereACapture()) {
+			capture=true;
+		}
+		capture=false;
 	}
 
 	private void nextTurn() {
