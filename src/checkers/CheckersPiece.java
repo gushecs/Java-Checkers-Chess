@@ -9,7 +9,7 @@ import boardgame.Position;
 import common.Color;
 import common.GamePosition;
 
-public class CheckersPiece extends Piece {
+public abstract class CheckersPiece extends Piece {
 
 	private Color color;
 	protected List<List<CheckersPiece>> capturedPieces;
@@ -75,12 +75,9 @@ public class CheckersPiece extends Piece {
 		possibleCaptures(ghostPieces, capturedPieces, piecePositions, capturePositions, longestStreak, position);
 	}
 
-	public void possibleCaptures(boolean[][] ghostPieces, List<CheckersPiece> capturedPieces,
-			List<Position> capturePositions, List<Position> piecePositions, int longestStreak, Position position) {
-	}
+	public abstract void possibleCaptures(boolean[][] ghostPieces, List<CheckersPiece> capturedPieces,
+			List<Position> capturePositions, List<Position> piecePositions, int longestStreak, Position position);
 
-	public boolean isThereACapture() {
-		return false;
-	}
+	public abstract boolean isThereACapture();
 
 }

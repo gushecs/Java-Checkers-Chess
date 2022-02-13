@@ -18,6 +18,10 @@ public class CheckersMatch {
 	private List<CheckersPiece> piecesOnTheBoard = new ArrayList<>();
 	private CheckersPiece promotion;
 	private boolean capture;
+	private List<List<CheckersPiece>> capturedPieces;
+	private List<List<Position>> capturePositions;
+	private List<List<Position>> piecePositions;
+	private int longestStreak;
 
 	public CheckersMatch() {
 		board = new Board(8, 8);
@@ -44,6 +48,22 @@ public class CheckersMatch {
 
 	public boolean getCapture() {
 		return capture;
+	}
+	
+	public List<List<CheckersPiece>> getCapturedPieces() {
+		return capturedPieces;
+	}
+
+	public List<List<Position>> getCapturePositions() {
+		return capturePositions;
+	}
+
+	public List<List<Position>> getPiecePositions() {
+		return piecePositions;
+	}
+
+	public int getLongestStreak() {
+		return longestStreak;
 	}
 
 	public CheckersPiece[][] getPieces() {
@@ -82,7 +102,7 @@ public class CheckersMatch {
 		}
 
 		nextTurn();
-		
+
 	}
 
 	public CheckersPiece replacePromotedPiece() {
@@ -129,35 +149,61 @@ public class CheckersMatch {
 	}
 
 	private boolean isThereACapture() {
-		List<CheckersPiece> list = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == currentPlayer)
-				.collect(Collectors.toList());
-		for (CheckersPiece p:list) {
+		List<CheckersPiece> list = piecesOnTheBoard.stream()
+				.filter(x -> ((CheckersPiece) x).getColor() == currentPlayer).collect(Collectors.toList());
+		for (CheckersPiece p : list) {
 			if (p.isThereACapture()) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public boolean isThereAWinner() {
-		List<CheckersPiece> list = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == currentPlayer)
-				.collect(Collectors.toList());
-		if (list.size()==0) {
+		List<CheckersPiece> list = piecesOnTheBoard.stream()
+				.filter(x -> ((CheckersPiece) x).getColor() == currentPlayer).collect(Collectors.toList());
+		if (list.size() == 0) {
 			return true;
 		}
-		for (CheckersPiece p:list) {
+		for (CheckersPiece p : list) {
 			if (p.isThereAnyPossibleMove()) {
 				return false;
 			}
 		}
 		return !isThereACapture();
 	}
-	
+
 	public void updateCapture() {
 		if (isThereACapture()) {
-			capture=true;
+			capture = true;
+		} else {
+		capture = false;
 		}
-		capture=false;
+	}
+
+	public void listCaptures() {
+		capturedPieces = new ArrayList<>();
+		capturePositions = new ArrayList<>();
+		piecePositions = new ArrayList<>();
+		longestStreak = 0;
+		List<CheckersPiece> list = piecesOnTheBoard.stream()
+				.filter(x -> ((CheckersPiece) x).getColor() == currentPlayer).collect(Collectors.toList());
+		for (CheckersPiece p:list) {
+			p.capture();
+			if (p.getLongestStreak()!=0 && p.getLongestStreak()>longestStreak) {
+				longestStreak=p.getLongestStreak();
+				capturedPieces = new ArrayList<>();
+				capturePositions = new ArrayList<>();
+				piecePositions = new ArrayList<>();
+				capturedPieces.addAll(p.getCapturedPieces());
+				capturePositions.addAll(p.getCapturePositions());
+				piecePositions.addAll(p.getPiecePositions());
+			} else if (p.getLongestStreak()==longestStreak) {
+				capturedPieces.addAll(p.getCapturedPieces());
+				capturePositions.addAll(p.getCapturePositions());
+				piecePositions.addAll(p.getPiecePositions());
+			}
+		}
 	}
 
 	private void nextTurn() {

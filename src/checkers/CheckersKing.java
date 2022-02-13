@@ -1,5 +1,7 @@
 package checkers;
 
+import java.util.List;
+
 import boardgame.Board;
 import boardgame.Position;
 import common.Color;
@@ -122,5 +124,12 @@ public class CheckersKing extends CheckersPiece{
 		}
 
 		return false;
+	}
+
+	@Override
+	public void possibleCaptures(boolean[][] ghostPieces, List<CheckersPiece> capturedPieces,
+			List<Position> capturePositions, List<Position> piecePositions, int longestStreak, Position position) {
+		// TODO Auto-generated method stub
+		
 	}
 }

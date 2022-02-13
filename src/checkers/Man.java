@@ -2,6 +2,7 @@ package checkers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import boardgame.Board;
 import boardgame.Position;
@@ -70,13 +71,19 @@ public class Man extends CheckersPiece {
 					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;
@@ -104,13 +111,19 @@ public class Man extends CheckersPiece {
 					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;
@@ -138,13 +151,19 @@ public class Man extends CheckersPiece {
 					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;
@@ -172,13 +191,19 @@ public class Man extends CheckersPiece {
 					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
-					this.capturedPieces.add(capturedPieces);
-					this.capturePositions.add(capturePositions);
-					this.piecePositions.add(piecePositions);
+					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
+					this.capturedPieces.add(cpl);
+					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
+					this.capturePositions.add(cposl);
+					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
+					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;

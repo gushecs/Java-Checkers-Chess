@@ -21,6 +21,7 @@ public class Program {
 
 		while (game == 3) {
 			try {
+				UI.clearScreen();
 				System.out.println("Choose your game!");
 				System.out.println();
 				System.out.println("1 - Checkers");
@@ -29,10 +30,11 @@ public class Program {
 				game = sc.nextInt();
 				sc.nextLine();
 				if (game != 1 && game != 2) {
+					game=3;
 					throw new InputMismatchException("Invalid entry! Press enter to continue.");
 				}
 			} catch (InputMismatchException e) {
-				System.out.println(e);
+				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
 		}
@@ -48,6 +50,9 @@ public class Program {
 					checkersMatch.updateCapture();
 
 					if (checkersMatch.getCapture()) {
+						
+						checkersMatch.listCaptures();
+						CheckersUI.printMatch(checkersMatch);
 
 					} else {
 
