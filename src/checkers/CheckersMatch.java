@@ -11,11 +11,11 @@ import common.Color;
 import common.GamePosition;
 
 public class CheckersMatch {
-	
+
 	private Board board;
 	private int turn;
 	private Color currentPlayer;
-	private List<Piece> piecesOnTheBoard = new ArrayList<>();
+	private List<CheckersPiece> piecesOnTheBoard = new ArrayList<>();
 	private CheckersPiece promotion;
 	private boolean capture;
 
@@ -25,7 +25,7 @@ public class CheckersMatch {
 		currentPlayer = Color.WHITE;
 		initialSetup();
 	}
-	
+
 	public Board getBoard() {
 		return board;
 	}
@@ -41,7 +41,7 @@ public class CheckersMatch {
 	public CheckersPiece getPromotion() {
 		return promotion;
 	}
-	
+
 	public boolean getCapture() {
 		return capture;
 	}
@@ -62,7 +62,7 @@ public class CheckersMatch {
 		return board.piece(position).possibleMoves();
 	}
 
-	public CheckersPiece performCheckersMove(GamePosition sourcePosition, GamePosition targetPosition) {
+	private void performCheckersMove(GamePosition sourcePosition, GamePosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
@@ -82,8 +82,7 @@ public class CheckersMatch {
 		}
 
 		nextTurn();
-
-		return (CheckersPiece) capturedPiece;
+		
 	}
 
 	public CheckersPiece replacePromotedPiece() {
@@ -93,8 +92,8 @@ public class CheckersMatch {
 		Position pos = promotion.getCheckersPosition().toPosition();
 		Piece p = board.removePiece(pos);
 		piecesOnTheBoard.remove(p);
-		
-		CheckersPiece newPiece = new CheckersKing(board,promotion.getColor());
+
+		CheckersPiece newPiece = new CheckersKing(board, promotion.getColor());
 		board.placePiece(newPiece, pos);
 		piecesOnTheBoard.add(newPiece);
 		return newPiece;
@@ -109,16 +108,6 @@ public class CheckersMatch {
 		board.placePiece(p, targetPosition);
 
 		return capturedPiece;
-	}
-
-	private void undoMove(Position source, Position target, Piece capturedPiece) {
-		CheckersPiece p = (CheckersPiece) board.removePiece(target);
-		board.placePiece(p, source);
-		if (capturedPiece != null) {
-			board.placePiece(capturedPiece, target);
-			piecesOnTheBoard.add(capturedPiece);
-		}
-
 	}
 
 	private void validateSourcePosition(Position position) {
@@ -137,6 +126,31 @@ public class CheckersMatch {
 		if (!board.piece(source).possibleMove(target)) {
 			throw new CheckersException("The chosen piece can't move to the target position!");
 		}
+	}
+
+	private boolean isThereACapture() {
+		List<CheckersPiece> list = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == currentPlayer)
+				.collect(Collectors.toList());
+		for (CheckersPiece p:list) {
+			if (p.isThereACapture()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isThereAWinner() {
+		List<CheckersPiece> list = piecesOnTheBoard.stream().filter(x -> ((CheckersPiece) x).getColor() == currentPlayer)
+				.collect(Collectors.toList());
+		if (list.size()==0) {
+			return true;
+		}
+		for (CheckersPiece p:list) {
+			if (p.isThereAnyPossibleMove()) {
+				return false;
+			}
+		}
+		return !isThereACapture();
 	}
 
 	private void nextTurn() {
