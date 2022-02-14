@@ -22,6 +22,7 @@ public class CheckersMatch {
 	private List<List<Position>> capturePositions;
 	private List<List<Position>> piecePositions;
 	private int longestStreak;
+	private int capturesCount;
 
 	public CheckersMatch() {
 		board = new Board(8, 8);
@@ -64,6 +65,10 @@ public class CheckersMatch {
 
 	public int getLongestStreak() {
 		return longestStreak;
+	}
+	
+	public int getCapturesCount() {
+		return capturesCount;
 	}
 
 	public CheckersPiece[][] getPieces() {
@@ -198,10 +203,12 @@ public class CheckersMatch {
 				capturedPieces.addAll(p.getCapturedPieces());
 				capturePositions.addAll(p.getCapturePositions());
 				piecePositions.addAll(p.getPiecePositions());
+				capturesCount=capturedPieces.size();
 			} else if (p.getLongestStreak()==longestStreak) {
 				capturedPieces.addAll(p.getCapturedPieces());
 				capturePositions.addAll(p.getCapturePositions());
 				piecePositions.addAll(p.getPiecePositions());
+				capturesCount+=1;
 			}
 		}
 	}

@@ -72,7 +72,7 @@ public abstract class CheckersPiece extends Piece {
 		List<Position> piecePositions = new ArrayList<>();
 		int longestStreak = 0;
 		piecePositions.add(position);
-		possibleCaptures(ghostPieces, capturedPieces, piecePositions, capturePositions, longestStreak, position);
+		possibleCaptures(ghostPieces, capturedPieces, capturePositions, piecePositions, longestStreak, position);
 	}
 
 	public abstract void possibleCaptures(boolean[][] ghostPieces, List<CheckersPiece> capturedPieces,

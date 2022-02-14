@@ -62,6 +62,12 @@ public class CheckersUI {
 		System.out.println("Turn: " + checkersMatch.getTurn());
 		if (!checkersMatch.isThereAWinner()) {
 			System.out.println("Waiting player " + checkersMatch.getCurrentPlayer());
+			if (checkersMatch.getCapture()) {
+				System.out.println();
+				System.out.println("Possible plays:");
+				printCaptures(checkersMatch);
+				System.out.println();
+			}
 		} else {
 			System.out.println("There's no move left for player " + checkersMatch.getCurrentPlayer() + "!");
 			Color winner = (checkersMatch.getCurrentPlayer() == Color.WHITE) ? Color.BLACK : Color.WHITE;
@@ -94,7 +100,7 @@ public class CheckersUI {
 				.getColumns()];
 		for (int i = 0; i < checkersMatch.getPiecePositions().size(); i++) {
 			List<Position> pos = checkersMatch.getPiecePositions().get(i);
-			for (int j = 0; j < pos.size(); j++) {
+			for (int j = 1; j < pos.size(); j++) {
 				passingSquares[pos.get(j).getRow()][pos.get(j).getColumn()] = true;
 				if (j == pos.size() - 1) {
 					finalSquares[pos.get(j).getRow()][pos.get(j).getColumn()] = true;
@@ -143,6 +149,26 @@ public class CheckersUI {
 				System.out.print(bgc + "  " + ANSI_RESET);
 			} else {
 				System.out.print("  " + ANSI_RESET);
+			}
+		}
+	}
+	
+	private static void printCaptures(CheckersMatch checkersMatch) {
+		int captures=0;
+		while (captures<checkersMatch.getCapturesCount()) {
+			for (int i=0;i<checkersMatch.getPiecePositions().size();i++) {
+				captures+=1;
+				List<Position> list=checkersMatch.getPiecePositions().get(i);
+				System.out.printf("Play #%d: ",captures);
+				for (int j=0;j<list.size();j++) {
+					if (j==0) {
+						System.out.print(GamePosition.fromPosition(list.get(j))+" -> ");
+					} else if (j==list.size()-1) {
+						System.out.println(ANSI_GREEN+GamePosition.fromPosition(list.get(j))+ANSI_RESET);
+					} else {
+						System.out.print(ANSI_PURPLE+GamePosition.fromPosition(list.get(j))+ANSI_RESET+" -> ");
+					}
+				}
 			}
 		}
 	}
