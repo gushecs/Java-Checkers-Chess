@@ -88,6 +88,9 @@ public class Program {
 				}
 
 			}
+			
+			CheckersUI.clearScreen();
+			CheckersUI.printMatch(checkersMatch);
 
 		} else {
 			ChessMatch chessMatch = new ChessMatch();
