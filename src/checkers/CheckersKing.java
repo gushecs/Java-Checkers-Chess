@@ -128,7 +128,7 @@ public class CheckersKing extends CheckersPiece{
 
 	@Override
 	public void possibleCaptures(boolean[][] ghostPieces, List<CheckersPiece> capturedPieces,
-			List<Position> capturePositions, List<Position> piecePositions, int longestStreak, Position position) {
+			List<Position> piecePositions, int longestStreak, Position position) {
 		// TODO Auto-generated method stub
 		
 	}

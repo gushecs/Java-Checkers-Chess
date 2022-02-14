@@ -51,15 +51,14 @@ public class Program {
 
 					if (checkersMatch.getCapture()) {
 						
-						int playID;
 						checkersMatch.listCaptures();
 						CheckersUI.printMatch(checkersMatch);
 						
 						System.out.print("Play number: ");
-						playID=sc.nextInt();
+						int playID=sc.nextInt();
 						sc.nextLine();
 						
-						
+						checkersMatch.performCheckersMove(playID);
 
 					} else {
 

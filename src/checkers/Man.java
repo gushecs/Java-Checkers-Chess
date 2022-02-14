@@ -49,7 +49,7 @@ public class Man extends CheckersPiece {
 
 	@Override
 	public void possibleCaptures(boolean[][] ghostPieces, List<CheckersPiece> capturedPieces,
-			List<Position> capturePositions, List<Position> piecePositions, int longestStreak,Position position) {
+			List<Position> piecePositions, int longestStreak,Position position) {
 
 		Position p1 = new Position(0, 0);
 		Position p2 = new Position(0, 0);
@@ -60,36 +60,30 @@ public class Man extends CheckersPiece {
 			if (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
 				ghostPieces[p1.getRow()][p1.getColumn()]=true;
 				capturedPieces.add((CheckersPiece)getBoard().piece(p1));
-				capturePositions.add(p1);
-				piecePositions.add(p2);
+				Position p3=new Position(p2.getRow(),p2.getColumn());
+				piecePositions.add(p3);
 				longestStreak+=1;
 				
-				possibleCaptures(ghostPieces,capturedPieces,capturePositions,piecePositions,longestStreak,p2);
+				possibleCaptures(ghostPieces,capturedPieces,piecePositions,longestStreak,p2);
 				
 				if (longestStreak>this.longestStreak) {
 					this.capturedPieces = new ArrayList<>();
-					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;
 				capturedPieces.remove((CheckersPiece)getBoard().piece(p1));
-				capturePositions.remove(p1);
-				piecePositions.remove(p2);
+				piecePositions.remove(p3);
 				longestStreak-=1;
 			}
 		}
@@ -100,36 +94,30 @@ public class Man extends CheckersPiece {
 			if (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
 				ghostPieces[p1.getRow()][p1.getColumn()]=true;
 				capturedPieces.add((CheckersPiece)getBoard().piece(p1));
-				capturePositions.add(p1);
-				piecePositions.add(p2);
+				Position p3=new Position(p2.getRow(),p2.getColumn());
+				piecePositions.add(p3);
 				longestStreak+=1;
 				
-				possibleCaptures(ghostPieces,capturedPieces,capturePositions,piecePositions,longestStreak,p2);
+				possibleCaptures(ghostPieces,capturedPieces,piecePositions,longestStreak,p2);
 				
 				if (longestStreak>this.longestStreak) {
 					this.capturedPieces = new ArrayList<>();
-					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;
 				capturedPieces.remove((CheckersPiece)getBoard().piece(p1));
-				capturePositions.remove(p1);
-				piecePositions.remove(p2);
+				piecePositions.remove(p3);
 				longestStreak-=1;
 			}
 		}
@@ -140,36 +128,30 @@ public class Man extends CheckersPiece {
 			if (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
 				ghostPieces[p1.getRow()][p1.getColumn()]=true;
 				capturedPieces.add((CheckersPiece)getBoard().piece(p1));
-				capturePositions.add(p1);
-				piecePositions.add(p2);
+				Position p3=new Position(p2.getRow(),p2.getColumn());
+				piecePositions.add(p3);
 				longestStreak+=1;
 				
-				possibleCaptures(ghostPieces,capturedPieces,capturePositions,piecePositions,longestStreak,p2);
+				possibleCaptures(ghostPieces,capturedPieces,piecePositions,longestStreak,p2);
 				
 				if (longestStreak>this.longestStreak) {
 					this.capturedPieces = new ArrayList<>();
-					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;
 				capturedPieces.remove((CheckersPiece)getBoard().piece(p1));
-				capturePositions.remove(p1);
-				piecePositions.remove(p2);
+				piecePositions.remove(p3);
 				longestStreak-=1;
 			}
 		}
@@ -180,36 +162,30 @@ public class Man extends CheckersPiece {
 			if (getBoard().positionExists(p2) && !getBoard().thereIsAPiece(p2)) {
 				ghostPieces[p1.getRow()][p1.getColumn()]=true;
 				capturedPieces.add((CheckersPiece)getBoard().piece(p1));
-				capturePositions.add(p1);
-				piecePositions.add(p2);
+				Position p3=new Position(p2.getRow(),p2.getColumn());
+				piecePositions.add(p3);
 				longestStreak+=1;
 				
-				possibleCaptures(ghostPieces,capturedPieces,capturePositions,piecePositions,longestStreak,p2);
+				possibleCaptures(ghostPieces,capturedPieces,piecePositions,longestStreak,p2);
 				
 				if (longestStreak>this.longestStreak) {
 					this.capturedPieces = new ArrayList<>();
-					this.capturePositions = new ArrayList<>();
 					this.piecePositions = new ArrayList<>();
 					this.longestStreak=longestStreak;
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				} else if (longestStreak==this.longestStreak) {
 					List<CheckersPiece> cpl = capturedPieces.stream().collect(Collectors.toList());
 					this.capturedPieces.add(cpl);
-					List<Position> cposl = capturePositions.stream().collect(Collectors.toList());
-					this.capturePositions.add(cposl);
 					List<Position> ppl = piecePositions.stream().collect(Collectors.toList());
 					this.piecePositions.add(ppl);
 				}
 				
 				ghostPieces[p1.getRow()][p1.getColumn()]=false;
 				capturedPieces.remove((CheckersPiece)getBoard().piece(p1));
-				capturePositions.remove(p1);
-				piecePositions.remove(p2);
+				piecePositions.remove(p3);
 				longestStreak-=1;
 			}
 		}

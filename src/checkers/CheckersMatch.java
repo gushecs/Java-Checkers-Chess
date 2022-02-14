@@ -19,10 +19,8 @@ public class CheckersMatch {
 	private CheckersPiece promotion;
 	private boolean capture;
 	private List<List<CheckersPiece>> capturedPieces;
-	private List<List<Position>> capturePositions;
 	private List<List<Position>> piecePositions;
 	private int longestStreak;
-	private int capturesCount;
 
 	public CheckersMatch() {
 		board = new Board(8, 8);
@@ -55,10 +53,6 @@ public class CheckersMatch {
 		return capturedPieces;
 	}
 
-	public List<List<Position>> getCapturePositions() {
-		return capturePositions;
-	}
-
 	public List<List<Position>> getPiecePositions() {
 		return piecePositions;
 	}
@@ -68,7 +62,7 @@ public class CheckersMatch {
 	}
 	
 	public int getCapturesCount() {
-		return capturesCount;
+		return capturedPieces.size();
 	}
 
 	public CheckersPiece[][] getPieces() {
@@ -92,7 +86,34 @@ public class CheckersMatch {
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
 		validateTargetPosition(source, target);
-		Piece capturedPiece = makeMove(source, target);
+		makeMove(source, target);
+
+		CheckersPiece movedPiece = (CheckersPiece) board.piece(target);
+
+		// promotion
+		promotion = null;
+		if (movedPiece instanceof Man) {
+			if ((movedPiece.getColor() == Color.WHITE && target.getRow() == 0)
+					|| (movedPiece.getColor() == Color.BLACK && target.getRow() == 7)) {
+				promotion = (CheckersPiece) board.piece(target);
+				promotion = replacePromotedPiece();
+			}
+		}
+
+		nextTurn();
+
+	}
+	
+	public void performCheckersMove(int playID) {
+		validateCapturePlay(playID);
+		Position source = piecePositions.get(playID-1).get(0);
+		Position target = piecePositions.get(playID-1).get(piecePositions.get(playID-1).size()-1);
+		makeMove(source, target);
+		
+		for (CheckersPiece p:capturedPieces.get(playID-1)) {
+			CheckersPiece removedPiece = (CheckersPiece) board.removePiece(p.getCheckersPosition().toPosition());
+			piecesOnTheBoard.remove(removedPiece);
+		}
 
 		CheckersPiece movedPiece = (CheckersPiece) board.piece(target);
 
@@ -124,15 +145,9 @@ public class CheckersMatch {
 		return newPiece;
 	}
 
-	private Piece makeMove(Position sourcePosition, Position targetPosition) {
+	private void makeMove(Position sourcePosition, Position targetPosition) {
 		CheckersPiece p = (CheckersPiece) board.removePiece(sourcePosition);
-		Piece capturedPiece = board.removePiece(targetPosition);
-		if (capturedPiece != null) {
-			piecesOnTheBoard.remove(capturedPiece);
-		}
 		board.placePiece(p, targetPosition);
-
-		return capturedPiece;
 	}
 
 	private void validateSourcePosition(Position position) {
@@ -150,6 +165,12 @@ public class CheckersMatch {
 	private void validateTargetPosition(Position source, Position target) {
 		if (!board.piece(source).possibleMove(target)) {
 			throw new CheckersException("The chosen piece can't move to the target position!");
+		}
+	}
+	
+	private void validateCapturePlay(int playID) {
+		if (playID==0 || playID>getCapturesCount()) {
+			throw new CheckersException("The number selected represents no valid play!");
 		}
 	}
 
@@ -188,7 +209,6 @@ public class CheckersMatch {
 
 	public void listCaptures() {
 		capturedPieces = new ArrayList<>();
-		capturePositions = new ArrayList<>();
 		piecePositions = new ArrayList<>();
 		longestStreak = 0;
 		List<CheckersPiece> list = piecesOnTheBoard.stream()
@@ -198,17 +218,12 @@ public class CheckersMatch {
 			if (p.getLongestStreak()!=0 && p.getLongestStreak()>longestStreak) {
 				longestStreak=p.getLongestStreak();
 				capturedPieces = new ArrayList<>();
-				capturePositions = new ArrayList<>();
 				piecePositions = new ArrayList<>();
 				capturedPieces.addAll(p.getCapturedPieces());
-				capturePositions.addAll(p.getCapturePositions());
 				piecePositions.addAll(p.getPiecePositions());
-				capturesCount=capturedPieces.size();
 			} else if (p.getLongestStreak()==longestStreak) {
 				capturedPieces.addAll(p.getCapturedPieces());
-				capturePositions.addAll(p.getCapturePositions());
 				piecePositions.addAll(p.getPiecePositions());
-				capturesCount+=1;
 			}
 		}
 	}

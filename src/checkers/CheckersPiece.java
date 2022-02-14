@@ -13,7 +13,6 @@ public abstract class CheckersPiece extends Piece {
 
 	private Color color;
 	protected List<List<CheckersPiece>> capturedPieces;
-	protected List<List<Position>> capturePositions;
 	protected List<List<Position>> piecePositions;
 	protected int longestStreak;
 
@@ -38,10 +37,6 @@ public abstract class CheckersPiece extends Piece {
 		return capturedPieces;
 	}
 
-	public List<List<Position>> getCapturePositions() {
-		return capturePositions;
-	}
-
 	public List<List<Position>> getPiecePositions() {
 		return piecePositions;
 	}
@@ -64,19 +59,17 @@ public abstract class CheckersPiece extends Piece {
 	public void capture() {
 		boolean[][] ghostPieces = new boolean[getBoard().getRows()][getBoard().getColumns()];
 		this.capturedPieces = new ArrayList<>();
-		this.capturePositions = new ArrayList<>();
 		this.piecePositions = new ArrayList<>();
 		this.longestStreak = 0;
 		List<CheckersPiece> capturedPieces = new ArrayList<>();
-		List<Position> capturePositions = new ArrayList<>();
 		List<Position> piecePositions = new ArrayList<>();
 		int longestStreak = 0;
 		piecePositions.add(position);
-		possibleCaptures(ghostPieces, capturedPieces, capturePositions, piecePositions, longestStreak, position);
+		possibleCaptures(ghostPieces, capturedPieces, piecePositions, longestStreak, position);
 	}
 
 	public abstract void possibleCaptures(boolean[][] ghostPieces, List<CheckersPiece> capturedPieces,
-			List<Position> capturePositions, List<Position> piecePositions, int longestStreak, Position position);
+			List<Position> piecePositions, int longestStreak, Position position);
 
 	public abstract boolean isThereACapture();
 
